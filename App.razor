@@ -1,12 +1,22 @@
 ﻿<Router AppAssembly="@typeof(App).Assembly">
     <Found Context="routeData">
-        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
-        <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)"/>
+        <FocusOnNavigate RouteData="@routeData" Selector="h1"/>
     </Found>
     <NotFound>
         <PageTitle>Not found</PageTitle>
         <LayoutView Layout="@typeof(MainLayout)">
-            <p role="alert">Sorry, there's nothing at this address.</p>
+            <div style="vertical-align: middle; display: grid; justify-content: center; align-items: center; justify-items: center;">
+                <div style="background-image: url(Asset/Notfound.svg); background-size: contain; height: 5em; width: 5em;"></div>
+
+                <p style="font-size: x-large; text-align: center">
+                    Oops，页面走丢啦……
+                </p>
+
+                <p style="text-align: center">
+                    <a href="/">返回首页</a>
+                </p>
+            </div>
         </LayoutView>
     </NotFound>
 </Router>
