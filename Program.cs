@@ -12,13 +12,14 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
-StyleDictionary? sd = StyleDictionary.DefaultLight;
-sd[ScopeName.PlainText].Background = "#FFF6F8FA";
+{
+    StyleDictionary? sd = StyleDictionary.DefaultLight;
+    sd[ScopeName.PlainText].Background = "#FFF6F8FA";
 
-builder.Services.AddScoped(sp => new MarkdownPipelineBuilder()
-    .UseAdvancedExtensions()
-    .UseColorCode(sd)
-    //.UseSyntaxHighlighting()
-    .Build());
+    builder.Services.AddScoped(sp => new MarkdownPipelineBuilder()
+        .UseAdvancedExtensions()
+        .UseColorCode(sd)
+        .Build());
+}
 
 await builder.Build().RunAsync();
