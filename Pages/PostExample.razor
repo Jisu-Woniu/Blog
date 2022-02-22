@@ -1,24 +1,12 @@
 ﻿@page "/PostExample"
 @using Markdig
 @inject MarkdownPipeline _pipeline
+@inject IJSRuntime _jsRuntime
 
 @(new MarkupString(s))
 
-@*<script src="https://giscus.app/client.js"
-        data-repo="Jisu-Woniu/Blog"
-        data-repo-id="R_kgDOG4JZsQ"
-        data-category="Announcements"
-        data-category-id="DIC_kwDOG4JZsc4CBQ54"
-        data-mapping="pathname"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="top"
-        data-theme="light"
-        data-lang="zh-CN"
-        crossorigin="anonymous"
-        async>
-</script>*@
 @code {
+
     string s => Markdown.ToHtml(@"
 # Header
 **BOLD** and *ITALIC*
@@ -31,4 +19,17 @@ using System;
 Console.WriteLine(""Hello World!"");
 ```
 ", _pipeline);
+
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+        if (firstRender)
+        {
+            IJSObjectReference giscus = await _jsRuntime.InvokeAsync<IJSObjectReference>
+                ("import", "./Pages/PostExample.razor.js");
+            await giscus.InvokeVoidAsync("addGiscus");
+        }
+    }
+
 }
