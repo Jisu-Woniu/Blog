@@ -1,9 +1,21 @@
 ﻿@page "/PostExample"
 @using Markdig
+@using GiscusBlazor
 @inject MarkdownPipeline _pipeline
 @inject IJSRuntime _jsRuntime
 
 @(new MarkupString(s))
+
+<Giscus Repo="Jisu-Woniu/Blog"
+        RepoId="R_kgDOG4JZsQ"
+        Category="Announcements"
+        CategoryId="DIC_kwDOG4JZsc4CBQ54"
+        Mapping="Mapping.PathName"
+        ReactionsEnabled="true"
+        EmitMetadata="false"
+        InputPosition="InputPosition.Top"
+        Theme="light"
+        Lang="zh-CN"/>
 
 @code {
 
@@ -19,17 +31,5 @@ using System;
 Console.WriteLine(""Hello World!"");
 ```
 ", _pipeline);
-
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-        if (firstRender)
-        {
-            IJSObjectReference giscus = await _jsRuntime.InvokeAsync<IJSObjectReference>
-                ("import", "./Pages/PostExample.razor.js");
-            await giscus.InvokeVoidAsync("addGiscus");
-        }
-    }
 
 }
