@@ -2,9 +2,8 @@
 @using Markdig
 @using GiscusBlazor
 @inject MarkdownPipeline _pipeline
-@inject IJSRuntime _jsRuntime
-
-@(new MarkupString(s))
+<PageTitle>@Title</PageTitle>
+@(new MarkupString(Content))
 
 <Giscus Repo="Jisu-Woniu/Blog"
         RepoId="R_kgDOG4JZsQ"
@@ -19,17 +18,27 @@
 
 @code {
 
-    string s => Markdown.ToHtml(@"
-# Header
-**BOLD** and *ITALIC*
+    string MarkdownText { get; set; } =
+        @"# 标题
 
-$e^{i\pi}+1=0$
+**加粗**、*倾斜*、***粗斜***
+
+程序代码示例：
 
 ```csharp
 using System;
 
 Console.WriteLine(""Hello World!"");
 ```
-", _pipeline);
+";
+
+    string Title => MarkdownText
+        .SkipWhile(c => c != '#')
+        .SkipWhile(c => c == '#')
+        .TakeWhile(c => c != '\n')
+        .ToArray().AsSpan().Trim()
+        .ToString();
+
+    string Content => Markdown.ToHtml(MarkdownText, _pipeline);
 
 }
