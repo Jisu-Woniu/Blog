@@ -10,44 +10,49 @@
 @*正文部分*@
 @(new MarkupString(Content))
 
-<hr/>
+@if (_fetched)
+{
+    <hr/>
 
-<p class="endnote">
-    本文为原创作品，发布于@(PostTime.LocalDateTime)，根据
-    <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh">
-        知识共享署名-相同方式共享 4.0 国际（CC BY-SA 4.0）
-    </a>
-    许可协议进行许可。
-    <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh">
-        <img src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" alt="知识共享许可协议"/>
-    </a>
-</p>
+    <p class="endnote">
+        本文为原创作品，发布于 @(PostTime.SiteFormat())，根据
+        <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh">
+            知识共享署名-相同方式共享 4.0 国际（CC BY-SA 4.0）
+        </a>
+        许可协议进行许可。
+        <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh">
+            <img src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" alt="知识共享许可协议"/>
+        </a>
+    </p>
 
-<Giscus Repo="Jisu-Woniu/Blog"
-        RepoId="R_kgDOG4JZsQ"
-        Category="Announcements"
-        CategoryId="DIC_kwDOG4JZsc4CBQ54"
-        Mapping="Mapping.PathName"
-        ReactionsEnabled="true"
-        EmitMetadata="false"
-        InputPosition="InputPosition.Top"
-        Theme="light"
-        Lang="zh-CN"/>
+    <Giscus Repo="Jisu-Woniu/Blog"
+            RepoId="R_kgDOG4JZsQ"
+            Category="Announcements"
+            CategoryId="DIC_kwDOG4JZsc4CBQ54"
+            Mapping="Mapping.PathName"
+            ReactionsEnabled="true"
+            EmitMetadata="false"
+            InputPosition="InputPosition.Top"
+            Theme="light"
+            Lang="zh-CN"/>
+}
 
 @code {
     ArticleInfo? article { get; set; }
     string Content { get; set; } = string.Empty;
     string Title { get; set; } = string.Empty;
     DateTimeOffset PostTime { get; set; }
+    bool _fetched;
 
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
         article = (await _httpClient.GetFromJsonAsync<List<ArticleInfo>>("articles-info.json"))?[0];
-        string MarkdownText = article == null ? "# Hello World!\nThis is my article" : await _httpClient.GetStringAsync(article.Url);
+        string markdownText = article == null ? "# Hello World!\nThis is my article" : await _httpClient.GetStringAsync(article.Url);
         Title = article?.Title ?? "Hello World!";
         PostTime = article?.PostTime ?? DateTimeOffset.Now;
-        Content = Markdown.ToHtml(MarkdownText, _pipeline);
+        Content = Markdown.ToHtml(markdownText, _pipeline);
+        _fetched = true;
     }
 
 }
