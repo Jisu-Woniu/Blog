@@ -4,15 +4,15 @@ using System.Text.Json.Nodes;
 namespace Blog.Models;
 
 [Serializable]
-public class ArticleInfo
+public class PostInfo
 {
     public string Title { get; set; } = null!;
     public string Url { get; set; } = null!;
     public DateTimeOffset PostTime { get; set; }
 
-    public static ArticleInfo? FromJson(JsonObject jsonInfo)
+    public static PostInfo? FromJson(JsonObject jsonInfo)
     {
-        return jsonInfo.Deserialize<ArticleInfo>();
+        return jsonInfo.Deserialize<PostInfo>();
     }
 
     public override string ToString()

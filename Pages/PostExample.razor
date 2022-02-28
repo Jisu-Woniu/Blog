@@ -1,4 +1,4 @@
-﻿@page "/PostExample"
+﻿@page "/posts/example"
 @using Markdig
 @using GiscusBlazor
 @using Blog.Models
@@ -38,7 +38,7 @@
 }
 
 @code {
-    ArticleInfo? article { get; set; }
+    PostInfo? post { get; set; }
     string Content { get; set; } = string.Empty;
     string Title { get; set; } = string.Empty;
     DateTimeOffset PostTime { get; set; }
@@ -47,10 +47,10 @@
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        article = (await _httpClient.GetFromJsonAsync<List<ArticleInfo>>("articles-info.json"))?[0];
-        string markdownText = article == null ? "# Hello World!\nThis is my article" : await _httpClient.GetStringAsync(article.Url);
-        Title = article?.Title ?? "Hello World!";
-        PostTime = article?.PostTime ?? DateTimeOffset.Now;
+        post = (await _httpClient.GetFromJsonAsync<List<PostInfo>>("posts-info.json"))?[0];
+        string markdownText = post == null ? "# Hello World!\nThis is my post" : await _httpClient.GetStringAsync(post.Url);
+        Title = post?.Title ?? "Hello World!";
+        PostTime = post?.PostTime ?? DateTimeOffset.Now;
         Content = Markdown.ToHtml(markdownText, _pipeline);
         _fetched = true;
     }
