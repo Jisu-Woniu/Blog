@@ -1,11 +1,37 @@
 ﻿@page "/posts"
 @using Blog.Models
+@inject HttpClient _httpClient
 
 
 <h1>博文</h1>
 
+@if (PostsList != null)
+{
+    <ul>
 
+    @foreach (PostInfo post in PostsList)
+    {
+        <li class="post-info">
+            <h2 class="post-title">
+                <a href="/posts/example">@post.Title</a>
+            </h2>
+            <p>@post.PostTime.SiteFormat()</p>
+        </li>
+    }
+    </ul>
+}
 
 @code {
-    List<PostInfo>
+    List<PostInfo>? PostsList { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        PostsList = await _httpClient.GetFromJsonAsync<List<PostInfo>>("posts-info.json");
+    }
+
+    void OnClick()
+    {
+        
+    }
 }
