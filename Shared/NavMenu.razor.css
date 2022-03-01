@@ -9,7 +9,10 @@
 	font-size: 1.1rem;
 }
 
-
+.navbar-brand-container {
+	display: flex;
+	align-items: center;
+}
 
 .oi {
 	width: 2rem;
