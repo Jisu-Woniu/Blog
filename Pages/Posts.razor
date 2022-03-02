@@ -9,15 +9,17 @@
 {
     <ul>
 
-    @foreach (PostInfo post in PostsList)
-    {
-        <li class="post-info">
-            <h2 class="post-title">
-                <a href="/posts/example">@post.Title</a>
-            </h2>
-            <p>@post.PostTime.SiteFormat()</p>
-        </li>
-    }
+        @foreach (PostInfo post in PostsList)
+        {
+            <li class="post-info">
+                <h2 class="post-title">
+                    <FluentAnchor Appearance="Appearance.Hypertext" Href="/posts/example">
+                        @post.Title
+                    </FluentAnchor>
+                </h2>
+                <p>@post.PostTime.SiteFormat()</p>
+            </li>
+        }
     </ul>
 }
 
@@ -30,8 +32,4 @@
         PostsList = await _httpClient.GetFromJsonAsync<List<PostInfo>>("posts-info.json");
     }
 
-    void OnClick()
-    {
-        
-    }
 }

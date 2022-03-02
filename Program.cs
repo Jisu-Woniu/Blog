@@ -1,4 +1,6 @@
+using System.Net.Http.Json;
 using Blog;
+using Blog.Models;
 using ColorCode.Common;
 using ColorCode.Styling;
 using Markdig;
@@ -21,5 +23,14 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.
         .UseColorCode(sd)
         .Build());
 }
+
+builder.Services.AddScoped<IList<PostInfo>>(sp =>
+    sp.GetService<HttpClient>()!
+        .GetFromJsonAsync<PostInfo[]>("wwwroot/posts-info.json")
+        .Result!);
+
+builder.Services.AddScoped<IDictionary<string, PostInfo>>(sp =>
+    sp.GetService<IList<PostInfo>>()!
+        .ToDictionary(info => info.Title));
 
 await builder.Build().RunAsync();
