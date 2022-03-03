@@ -24,13 +24,14 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.
         .Build());
 }
 
-builder.Services.AddScoped<IList<PostInfo>>(sp =>
+builder.Services.AddScoped(sp =>
     sp.GetService<HttpClient>()!
-        .GetFromJsonAsync<PostInfo[]>("wwwroot/posts-info.json")
-        .Result!);
+        .GetFromJsonAsync<IList<PostInfo>?>("posts-info.json")
+);
 
-builder.Services.AddScoped<IDictionary<string, PostInfo>>(sp =>
-    sp.GetService<IList<PostInfo>>()!
-        .ToDictionary(info => info.Title));
+builder.Services.AddScoped(sp =>
+    (sp.GetService<Task<IList<PostInfo>?>>()?
+         .ContinueWith(task => task.Result?.ToDictionary(p => p.UrlTitle)) ??
+     Task.FromResult(new Dictionary<string, PostInfo>())!)!);
 
 await builder.Build().RunAsync();

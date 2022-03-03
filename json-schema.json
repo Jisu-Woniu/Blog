@@ -1,0 +1,21 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema",
+	"title": "JSON Schema for post-info.json",
+
+	"type": "array",
+	"items": {
+		"type": "object",
+		"properties": {
+			"title": {
+				"type": "string"
+			},
+			"urlTitle": {
+				"type": "string"
+			},
+			"postTime": {
+				"type": "string",
+				"format": "date-time"
+			} 
+		}
+	}
+}

@@ -19,4 +19,10 @@
     <Folder Include="wwwroot\scripts\" />
   </ItemGroup>
 
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties wwwroot_4posts-info_1json__JsonSchema="..\json-schema.json" />
+    </VisualStudio>
+  </ProjectExtensions>
+
 </Project>

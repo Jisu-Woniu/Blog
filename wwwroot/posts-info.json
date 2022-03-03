@@ -1,7 +1,7 @@
 [
 	{
 		"title": "在 Blazor 中使用 IJSRuntime 动态加载 JavaScript 脚本",
-		"url": "posts-src/load-js-dynamically-with-ijsruntime-in-blazor.md",
+		"urlTitle": "load-js-dynamically-with-ijsruntime-in-blazor",
 		"postTime": "2022-02-27T00:47:07.8420294+08:00"
 	}
 ]

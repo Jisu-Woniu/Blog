@@ -1,7 +1,7 @@
 ﻿@page "/posts"
 @using Blog.Models
 @inject HttpClient _httpClient
-
+@inject Task<IList<PostInfo>> _postsListTask
 
 <h1>博文</h1>
 
@@ -13,8 +13,8 @@
         {
             <li class="post-info">
                 <h2 class="post-title">
-                    <FluentAnchor Appearance="Appearance.Hypertext" Href="/posts/example">
-                        @post.Title
+                    <FluentAnchor Appearance="Appearance.Hypertext" Href=@($"/posts/detail/{post.UrlTitle}")>
+                        <span class="post-link">@post.Title</span>
                     </FluentAnchor>
                 </h2>
                 <p>@post.PostTime.SiteFormat()</p>
@@ -24,12 +24,12 @@
 }
 
 @code {
-    List<PostInfo>? PostsList { get; set; }
+    IList<PostInfo>? PostsList { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        PostsList = await _httpClient.GetFromJsonAsync<List<PostInfo>>("posts-info.json");
+        PostsList = await _postsListTask;
     }
 
 }

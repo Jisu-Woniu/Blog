@@ -1,10 +1,11 @@
-﻿@page "/posts/example"
+﻿@page "/posts/detail/{UrlTitle?}"
 @using Markdig
 @using GiscusBlazor
 @using Blog.Models
 @using System.Text.RegularExpressions
 @inject MarkdownPipeline _pipeline
 @inject HttpClient _httpClient
+@inject Task<Dictionary<string, PostInfo>> _postsMapTask
 
 <PageTitle>@Title</PageTitle>
 
@@ -51,8 +52,12 @@
 }
 
 @code {
-    PostInfo? post { get; set; }
+    PostInfo? Post { get; set; }
     string Content { get; set; } = string.Empty;
+
+    [Parameter]
+    public string? UrlTitle { get; set; }
+
     string Title { get; set; } = string.Empty;
     DateTimeOffset PostTime { get; set; }
     bool _fetched;
@@ -60,13 +65,18 @@
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        post = (await _httpClient.GetFromJsonAsync<List<PostInfo>>("posts-info.json"))?[0];
-        string markdownText = post == null ? "# Hello World!\nThis is my post" : await _httpClient.GetStringAsync(post.Url);
-        Title = post?.Title ?? "Hello World!";
-        PostTime = post?.PostTime ?? DateTimeOffset.Now;
-        Content = Regex.Replace(Markdown.ToHtml(markdownText, _pipeline), "<a ([\\w\\W\\r\\n]*?)</a>", "<fluent-anchor appearance=\"hypertext\" $1</fluent-anchor>", RegexOptions.Compiled)
-            ;
-
+        Dictionary<string, PostInfo> postsMap = await _postsMapTask;
+        if (UrlTitle == null || !postsMap.ContainsKey(UrlTitle))
+            throw new NullReferenceException("Page not found."); //404
+        Post = postsMap[UrlTitle]; //(await _httpClient.GetFromJsonAsync<List<PostInfo>>("posts-info.json"))?[0];
+        string markdownText = Post == null ? "# Hello World!\nThis is my post" : await _httpClient.GetStringAsync($"posts-src/{UrlTitle}.md");
+        Title = Post?.Title ?? "Hello World!";
+        PostTime = Post?.PostTime ?? DateTimeOffset.Now;
+        Content = Regex.Replace(
+            Markdown.ToHtml(markdownText, _pipeline),
+            "<a ([\\w\\W\\r\\n]*?)</a>",
+            "<fluent-anchor appearance=\"hypertext\" $1</fluent-anchor>",
+            RegexOptions.Compiled);
         _fetched = true;
     }
 

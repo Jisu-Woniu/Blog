@@ -7,7 +7,7 @@ namespace Blog.Models;
 public class PostInfo
 {
     public string Title { get; set; } = null!;
-    public string Url { get; set; } = null!;
+    public string UrlTitle { get; set; } = null!;
     public DateTimeOffset PostTime { get; set; }
 
     public static PostInfo? FromJson(JsonObject jsonInfo)
