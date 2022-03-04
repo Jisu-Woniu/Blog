@@ -21,7 +21,7 @@
 
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties wwwroot_4posts-info_1json__JsonSchema="..\json-schema.json" />
+      <UserProperties wwwroot_4posts-info_1json__JsonSchema="..\post-info-schema.json" />
     </VisualStudio>
   </ProjectExtensions>
 

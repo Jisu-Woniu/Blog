@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "@fluentui/web-components": "^2.3.0",
-    "giscus": "^0.0.9"
-  }
-}
