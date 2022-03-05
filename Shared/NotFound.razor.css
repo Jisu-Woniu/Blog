@@ -1,0 +1,19 @@
+﻿.not-found-body {
+  vertical-align: middle;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
+}
+
+.not-found-icon {
+  background-image: url(/Asset/Notfound.svg);
+  background-size: contain;
+  height: 5em;
+  width: 5em;
+}
+
+.not-found-info {
+  font-size: x-large;
+  text-align: center;
+}

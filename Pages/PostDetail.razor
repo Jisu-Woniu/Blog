@@ -1,82 +1,117 @@
-﻿@page "/posts/detail/{UrlTitle?}"
+﻿@page "/posts/detail/{UrlTitle}"
 @using Markdig
 @using GiscusBlazor
 @using Blog.Models
 @using System.Text.RegularExpressions
-@inject MarkdownPipeline _pipeline
+@inject NavigationManager _navigationManager
 @inject HttpClient _httpClient
+@inject MarkdownPipeline _pipeline
 @inject Task<Dictionary<string, PostInfo>> _postsMapTask
-
-<PageTitle>@Title</PageTitle>
-
-@*正文部分*@
-@(new MarkupString(Content))
 
 @if (_fetched)
 {
+    <PageTitle>@Title</PageTitle>
+    <div class="post-body">
+        @(new MarkupString(Content))
+    </div>
     <hr />
 
-    <p class="endnote">
-        本文为原创作品，发布于 @(PostTime.SiteFormat())，根据
-        <fluent-anchor appearance="hypertext" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh">
-            知识共享署名-相同方式共享 4.0 国际（CC BY-SA 4.0）
-        </fluent-anchor>
-        许可协议进行许可。
-        <fluent-anchor appearance="hypertext" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh">
-            <img alt="知识共享许可协议" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" />
-        </fluent-anchor>
-    </p>
+    @if (Post.Repost == null)
+    {
+        <p class="endnote">
 
-    <Giscus Category="Announcements"
-            CategoryId="DIC_kwDOG4JZsc4CBQ54"
-            EmitMetadata="false"
-            InputPosition="InputPosition.Top"
-            Lang="zh-CN"
-            Mapping="Mapping.PathName"
-            ReactionsEnabled="true"
-            Repo="Jisu-Woniu/Blog"
-            RepoId="R_kgDOG4JZsQ"
-            Theme="light" />
+            本文为原创作品，发布于 @(PostTime.SiteFormat())，根据
+            <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh">
+                <span class="link-content">知识共享署名-相同方式共享 4.0 国际（CC BY-SA 4.0）</span>
+            </a>
+            许可协议进行许可。
+            <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh">
+                <img alt="知识共享许可协议" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" />
+            </a>
+        </p>
+    }
+    else
+    {
+        <p class="endnote">
+            <span>本文</span>
+            @if (Post.Repost.OriginalAuthor is string Author)
+            {
+                <span>原作者@(Author)，</span>
+            }
+            <span>原文发布于@(Post.Repost.OriginalUrl)</span>
+            @if (Post.Repost.License is string license)
+            {
+                <span>，</span>
+                <span>根据</span>
+                @if (Post.Repost.LicenseUrl is Uri url)
+                {
+
+                    <a rel="license" href="@(url.ToString())">
+                        @(license)
+                    </a>
+                }
+                else
+                {
+                    @license
+                }
+                <span>许可协议进行许可</span>
+            }
+            <span>。</span>
+        </p>
+    }
+
+    <Giscus Category="Announcements" CategoryId="DIC_kwDOG4JZsc4CBQ54" EmitMetadata="false"
+    InputPosition="InputPosition.Top" Lang="zh-CN" Mapping="Mapping.PathName" ReactionsEnabled="true"
+    Repo="Jisu-Woniu/Blog" RepoId="R_kgDOG4JZsQ" Theme="light" />
 
     @*<giscus-widget category="Announcements"
-                   categoryid="DIC_kwDOG4JZsc4CBQ54"
-                   emitmetadata="0"
-                   inputposition="top"
-                   lang="zh-CN"
-                   mapping="pathname"
-                   reactionsenabled="1"
-                   repo="Jisu-Woniu/Blog"
-                   repoid="R_kgDOG4JZsQ"
-                   theme="light">
-    </giscus-widget>*@
+        categoryid="DIC_kwDOG4JZsc4CBQ54"
+        emitmetadata="0"
+        inputposition="top"
+        lang="zh-CN"
+        mapping="pathname"
+        reactionsenabled="1"
+        repo="Jisu-Woniu/Blog"
+        repoid="R_kgDOG4JZsQ"
+        theme="light">
+        </giscus-widget>*@
+}
+else if (_notFound)
+{
+    <NotFound />
 }
 
 @code {
-    PostInfo? Post { get; set; }
+    PostInfo Post { get; set; } = null!;
     string Content { get; set; } = string.Empty;
 
     [Parameter]
-    public string? UrlTitle { get; set; }
+    public string UrlTitle { get; set; } = null!;
 
     string Title { get; set; } = string.Empty;
     DateTimeOffset PostTime { get; set; }
     bool _fetched;
+    bool _notFound;
 
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
         Dictionary<string, PostInfo> postsMap = await _postsMapTask;
-        if (UrlTitle == null || !postsMap.ContainsKey(UrlTitle))
-            throw new NullReferenceException("Page not found."); //404
+        if (string.IsNullOrEmpty(UrlTitle) || !postsMap.ContainsKey(UrlTitle))
+        {
+            _notFound = true;
+            return;
+        }
         Post = postsMap[UrlTitle]; //(await _httpClient.GetFromJsonAsync<List<PostInfo>>("posts-info.json"))?[0];
-        string markdownText = Post == null ? "# Hello World!\nThis is my post" : await _httpClient.GetStringAsync($"posts-src/{UrlTitle}.md");
-        Title = Post?.Title ?? "Hello World!";
-        PostTime = Post?.PostTime ?? DateTimeOffset.Now;
-        Content = Regex.Replace(
-            Markdown.ToHtml(markdownText, _pipeline),
-            "<a ([\\w\\W\\r\\n]*?)</a>",
-            "<fluent-anchor appearance=\"hypertext\" $1</fluent-anchor>",
-            RegexOptions.Compiled);
+        string markdownText = await _httpClient.GetStringAsync($"posts-src/{UrlTitle}.md");
+        Title = Post.Title;
+        PostTime = Post.PostTime;
+        Content = //Regex.Replace(
+        Markdown.ToHtml(markdownText, _pipeline)//,
+                                                //"<a ([\\w\\W\\r\\n]*?)</a>",
+                                                //"<fluent-anchor appearance=\"hypertext\" $1</fluent-anchor>",
+                                                //RegexOptions.Compiled)
+        ;
         _fetched = true;
     }
 

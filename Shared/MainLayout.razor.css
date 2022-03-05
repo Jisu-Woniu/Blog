@@ -1,26 +1,32 @@
-.page { position: relative; }
+.page {
+  position: relative;
+}
 
-main { flex: 1; }
+main {
+  flex: 1;
+}
 
 .topbar {
-	background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
-	z-index: 10;
+  background-image: linear-gradient(180deg, #5b8ff9 0%, #3d76dd 70%);
+  z-index: 10;
 }
 
 @media (min-width: 641px) {
-	.page { flex-direction: row; }
+  .page {
+    flex-direction: row;
+  }
 
-	.topbar {
-		width: 100vw;
-		/*		height: 200px;*/
-		position: sticky;
-		top: 0;
-	}
+  .topbar {
+    width: 100vw;
+    /*		height: 200px;*/
+    position: sticky;
+    top: 0;
+  }
 }
 
 @media (max-width: 640.999px) {
-	.page {
-		display: flex;
-		flex-direction: column;
-	}
+  .page {
+    display: flex;
+    flex-direction: column;
+  }
 }

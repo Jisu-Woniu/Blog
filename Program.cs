@@ -12,13 +12,16 @@ WebAssemblyHostBuilder builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
-builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+builder.Services.AddScoped(_ => new HttpClient
+{
+    BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
+});
 
 {
     StyleDictionary? sd = StyleDictionary.DefaultLight;
     sd[ScopeName.PlainText].Background = "#FFF6F8FA";
 
-    builder.Services.AddScoped(sp => new MarkdownPipelineBuilder()
+    builder.Services.AddScoped(_ => new MarkdownPipelineBuilder()
         .UseAdvancedExtensions()
         .UseColorCode(sd)
         .Build());
@@ -30,8 +33,8 @@ builder.Services.AddScoped(sp =>
 );
 
 builder.Services.AddScoped(sp =>
-    (sp.GetService<Task<IList<PostInfo>?>>()?
-         .ContinueWith(task => task.Result?.ToDictionary(p => p.UrlTitle)) ??
-     Task.FromResult(new Dictionary<string, PostInfo>())!)!);
+    sp.GetService<Task<IList<PostInfo>?>>()?
+        .ContinueWith(task => task.Result?.ToDictionary(p => p.UrlTitle)) ??
+    Task.FromResult(new Dictionary<string, PostInfo>())!);
 
 await builder.Build().RunAsync();
