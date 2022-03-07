@@ -126,10 +126,13 @@ a:hover {
   content: "An error has occurred.";
 }
 
-#endnote fluent-anchor,
-#endnote fluent-anchor.hypertext a.control {
-  display: inline !important;
-  white-space: normal !important;
+div.postbody code {
+  color: black !important;
+  background-color: rgba(175, 184, 193, 0.2);
+  padding: 0.2em 0.4em;
+  border-radius: 6px;
+  margin: 0;
+  font-size: 85%;
 }
 
 @media (min-width: 641px) {

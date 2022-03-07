@@ -2,62 +2,9 @@
   font-style: italic;
 }
 
-/* export const HypertextStyles = (
-  context: ElementDefinitionContext,
-  definition: FoundationElementDefinition,
-  interactivitySelector: string = '',
-  nonInteractivitySelector: string = '',
-) =>
-  css`
-    :host {
-      height: auto;
-      font-family: inherit;
-      font-size: inherit;
-      line-height: inherit;
-      min-width: 0;
-    }
-    :host .control {
-      display: inline;
-      padding: 0;
-      background: transparent;
-      border: none;
-      box-shadow: none;
-      line-height: 1;
-      text-decoration: underline 1px;
-    }
-    :host .control:not([href]) {
-      background: transparent;
-    }
-    :host .control${interactivitySelector} {
-      background: transparent;
-      color: ${accentForegroundRest};
-    }
-    :host .control${interactivitySelector}:hover {
-      background: transparent;
-      color: ${accentForegroundHover};
-      text-decoration: none;
-    }
-    :host .control${interactivitySelector}:active {
-      background: transparent;
-      color: ${accentForegroundActive};
-      text-decoration: none;
-    }
-    :host .control:${focusVisible} {
-      box-shadow: 0 0 0 calc(${focusStrokeWidth} * 1px) ${focusStrokeOuter} !important;
-    }
-    :host .control${nonInteractivitySelector} {
-      background: transparent;
-    }
-  `.withBehaviors(
-    forcedColorsStylesheetBehavior(
-      css`
-      :host .control${interactivitySelector}:hover {
-        color: ${SystemColors.Highlight};
-        fill: currentcolor;
-      }
-      :host .control:${focusVisible} {
-        color: ${SystemColors.LinkText};
-      }
-      `,
-    ),
-  ); */
+div.postbody code {
+  background-color: whitesmoke;
+  color: black;
+  font-size: 85%;
+  padding: 0.2em 0.4em;
+}
