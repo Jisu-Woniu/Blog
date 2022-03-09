@@ -19,7 +19,7 @@ builder.Services.AddScoped(_ => new HttpClient
 
 {
     StyleDictionary? sd = StyleDictionary.DefaultLight;
-    sd[ScopeName.PlainText].Background = "#FFF6F8FA";
+    sd[ScopeName.PlainText].Background = "#FFdfe5ed";
 
     builder.Services.AddScoped(_ => new MarkdownPipelineBuilder()
         .UseAdvancedExtensions()
