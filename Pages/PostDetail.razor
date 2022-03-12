@@ -2,7 +2,6 @@
 @using Markdig
 @using GiscusBlazor
 @using Blog.Models
-@using System.Text.RegularExpressions
 @inject NavigationManager _navigationManager
 @inject HttpClient _httpClient
 @inject MarkdownPipeline _pipeline
@@ -60,21 +59,11 @@
         </p>
     }
 
-    <Giscus Category="Announcements" CategoryId="DIC_kwDOG4JZsc4CBQ54" EmitMetadata="false"
-    InputPosition="InputPosition.Top" Lang="zh-CN" Mapping="Mapping.PathName" ReactionsEnabled="true"
-    Repo="Jisu-Woniu/Blog" RepoId="R_kgDOG4JZsQ" Theme="light" />
-
-    @*<giscus-widget category="Announcements"
-        categoryid="DIC_kwDOG4JZsc4CBQ54"
-        emitmetadata="0"
-        inputposition="top"
-        lang="zh-CN"
-        mapping="pathname"
-        reactionsenabled="1"
-        repo="Jisu-Woniu/Blog"
-        repoid="R_kgDOG4JZsQ"
-        theme="light">
-        </giscus-widget>*@
+    <Giscus Repo="Jisu-Woniu/Blog" RepoId="R_kgDOG4JZsQ"
+            Category="Announcements" CategoryId="DIC_kwDOG4JZsc4CBQ54"
+            EmitMetadata="false" InputPosition="InputPosition.Top" Lang="zh-CN"
+            Mapping="Mapping.PathName" ReactionsEnabled="true"
+            Theme="light" />
 }
 else if (_notFound)
 {

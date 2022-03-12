@@ -1,6 +1,5 @@
 ﻿<div class="navbar navbar-dark ps-3 top-row">
     <div class="container-fluid title-bar">
-
         <div class="navbar-brand-container">
             <a class="navbar-brand" href="">JSWN's Blog</a>
             <FluentAnchor Href="https://github.com/Jisu-Woniu/Blog/">
@@ -13,19 +12,11 @@
         <FluentButton @onclick="ToggleNavMenu" id="nav-toggler">
             @if (collapseNavMenu)
             {
-                <svg class="toggler-icon" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                    d="M3 17h18a1 1 0 0 1 .117 1.993L21 19H3a1 1 0 0 1-.117-1.993L3 17h18H3Zm0-6 18-.002a1 1 0 0 1 .117 1.993l-.117.007L3 13a1 1 0 0 1-.117-1.993L3 11l18-.002L3 11Zm0-6h18a1 1 0 0 1 .117 1.993L21 7H3a1 1 0 0 1-.117-1.993L3 5h18H3Z"
-                    fill="#212121" />
-                </svg>
+                <i class="ms-Icon ms-Icon--CalculatorEqualTo toggler-icon" />
             }
             else
             {
-                <svg class="toggler-icon" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                    d="m4.21 4.387.083-.094a1 1 0 0 1 1.32-.083l.094.083L12 10.585l6.293-6.292a1 1 0 1 1 1.414 1.414L13.415 12l6.292 6.293a1 1 0 0 1 .083 1.32l-.083.094a1 1 0 0 1-1.32.083l-.094-.083L12 13.415l-6.293 6.292a1 1 0 0 1-1.414-1.414L10.585 12 4.293 5.707a1 1 0 0 1-.083-1.32l.083-.094-.083.094Z"
-                    fill="#212121" />
-                </svg>
+                <i class="ms-Icon ms-Icon--CalculatorMultiply toggler-icon" />
             }
         </FluentButton>
     </div>
@@ -35,19 +26,14 @@
     <nav class="flex-row nav-menu">
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span aria-hidden="true" class="oi oi-home"></span> 首页
+                <span aria-hidden="true" class="ms-Icon ms-Icon--Home"></span> 首页
             </NavLink>
         </div>
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="posts">
-                <span aria-hidden="true" class="oi oi-pencil"></span> 博文
+                <span aria-hidden="true" class="ms-Icon ms-Icon--OpenEnrollment"></span> 博文
             </NavLink>
         </div>
-        @*<div class="nav-item px-3">
-            <NavLink class="nav-link" href="fetchdata">
-            <span aria-hidden="true" class="oi oi-list-rich"></span> Fetch data
-            </NavLink>
-            </div>*@
     </nav>
 </div>
 

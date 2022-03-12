@@ -1,28 +1,29 @@
 <Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="GiscusBlazor" Version="1.2.1" />
-    <PackageReference Include="Markdig" Version="0.27.0" />
-    <PackageReference Include="Markdown.ColorCode" Version="1.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.2" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.Fast.Components.FluentUI" Version="1.1.0" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="GiscusBlazor" Version="1.2.1" />
+        <PackageReference Include="Markdig" Version="0.27.0" />
+        <PackageReference Include="Markdown.ColorCode" Version="1.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.2" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.2"
+                          PrivateAssets="all" />
+        <PackageReference Include="Microsoft.Fast.Components.FluentUI" Version="1.1.0" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\scripts\" />
-  </ItemGroup>
+    <ItemGroup>
+        <Folder Include="wwwroot\scripts\" />
+    </ItemGroup>
 
-  <ProjectExtensions>
-    <VisualStudio>
-      <UserProperties wwwroot_4posts-info_1json__JsonSchema="..\post-info-schema.json" />
-    </VisualStudio>
-  </ProjectExtensions>
+    <ProjectExtensions>
+        <VisualStudio>
+            <UserProperties wwwroot_4posts-info_1json__JsonSchema="..\post-info-schema.json" />
+        </VisualStudio>
+    </ProjectExtensions>
 
 </Project>
