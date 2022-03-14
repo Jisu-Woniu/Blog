@@ -10,29 +10,48 @@
     <link href="https://cdn.jsdelivr.net/npm/office-ui-fabric-core/dist/css/fabric.min.css" rel="stylesheet" />
     <link href="css/app.css" rel="stylesheet" />
     <link href="Blog.styles.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/@fluentui/web-components/dist/web-components.min.js" type="module"></script>
+    <script src="https://cdn.jsdelivr.net/npm/giscus/+esm" type="module"></script>
 </head>
 
 <body>
-    <div id="app">
-        <div class="site-title">欢迎来到 JSWN 的博客</div>
-        <div class="loading-bar"></div>
-        <div class="loading-text">页面加载中，请稍候</div>
-    </div>
+<div id="app">
+    <div class="site-title">欢迎来到 JSWN 的博客</div>
+    <div class="loading-bar"></div>
+    <div class="loading-text">页面加载中，请稍候</div>
+</div>
 
-    <div id="blazor-error-ui">
-        An unhandled error has occurred.
-        <a class="reload" href="">Reload</a>
-        <a class="dismiss">🗙</a>
-    </div>
-    <script autostart="false" src="_framework/blazor.webassembly.js"></script>
-    <script>
-        Blazor.start({
-            applicationCulture: 'zh-CN'
-        });
-    </script>
-    <script type="module"
-        src="https://cdn.jsdelivr.net/npm/@fluentui/web-components/dist/web-components.min.js"></script>
-    <script type="module" src="https://cdn.jsdelivr.net/npm/giscus/+esm"></script>
+<div id="blazor-error-ui">
+    An unhandled error has occurred.
+    <a class="reload" href="">Reload</a>
+    <a class="dismiss">🗙</a>
+</div>
+<script autostart="false" src="_framework/blazor.webassembly.js"></script>
+<script type="module">
+	import { BrotliDecode } from './decode.min.js';
+    Blazor.start({
+        applicationCulture: 'zh-CN',
+		loadBootResource: function (type, name, defaultUri, integrity) {
+			if (type !== 'dotnetjs' && location.hostname !== 'localhost') {
+				return (async function () {
+					const response = await fetch(defaultUri + '.br', { cache: 'no-cache' });
+					if (!response.ok) {
+						throw new Error(response.statusText);
+					}
+					const originalResponseBuffer = await response.arrayBuffer();
+					const originalResponseArray = new Int8Array(originalResponseBuffer);
+					const decompressedResponseArray = BrotliDecode(originalResponseArray);
+					const contentType = type ===
+						'dotnetwasm' ? 'application/wasm' : 'application/octet-stream';
+					return new Response(decompressedResponseArray,
+						{ headers: { 'content-type': contentType } });
+				})();
+			}
+		}
+    });
+
+</script>
+
 </body>
 
 </html>
