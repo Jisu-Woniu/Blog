@@ -4,7 +4,6 @@
 
 .top-row {
   height: 3.5rem;
-  /* background-color: rgba(0, 0, 0, 0.4); */
 }
 
 .navbar-brand {
@@ -18,7 +17,7 @@
 
 .ms-Icon {
   width: 2rem;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   vertical-align: text-top;
   top: -2px;
 }
