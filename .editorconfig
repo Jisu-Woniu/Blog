@@ -175,3 +175,8 @@ end_of_line = crlf
 tab_width = 4
 indent_size = 4
 dotnet_style_operator_placement_when_wrapping = beginning_of_line
+
+[*.{css,js}]
+indent_style = space
+indent_size = 4
+tab_width = 4

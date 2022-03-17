@@ -1,47 +1,47 @@
 .page {
-  position: relative;
-  min-height: 100vh;
-  background-color: lightsteelblue;
+    position: relative;
+    min-height: 100vh;
+    background-color: lightsteelblue;
 }
 
 main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 0 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 10px;
 }
 
 .topbar {
-  background-image: linear-gradient(180deg, #5b8ff9 0%, #3d76dd 70%);
-  z-index: 10;
+    background-image: linear-gradient(180deg, #5b8ff9 0%, #3d76dd 70%);
+    z-index: 10;
 }
 
 .content {
-  display: block;
-  contain: content;
-  height: 100%;
-  width: 100%;
-  box-sizing: border-box;
-  background: rgba(255, 255, 255, 0.75);
-  color: #212121;
-  border: 1px solid #f3f3f3;
-  border-radius: 8px;
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.14);
-  margin: 10px 0;
+    display: block;
+    contain: content;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.75);
+    color: #212121;
+    border: 1px solid #f3f3f3;
+    border-radius: 8px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.14);
+    margin: 10px 0;
 }
 
 @media (min-width: 641px) {
-  .page {
-    flex-direction: row;
-  }
+    .page {
+        flex-direction: row;
+    }
 
-  .topbar {
-    position: sticky;
-    top: 0;
-  }
+    .topbar {
+        position: sticky;
+        top: 0;
+    }
 
-  .content {
-    width: 80vw;
-    min-height: 100%;
-  }
+    .content {
+        width: 80vw;
+        min-height: 100%;
+    }
 }
