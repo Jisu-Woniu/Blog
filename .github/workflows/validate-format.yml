@@ -1,0 +1,22 @@
+name: Validate format
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+  workflow_dispatch:
+
+jobs:
+  check_formatting:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Restore tools
+        run: dotnet tool restore
+
+      - name: Check format
+        run: dotnet csharpier --check
