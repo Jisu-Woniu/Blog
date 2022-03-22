@@ -22,14 +22,3 @@
         }
     </ul>
 }
-
-@code {
-    IList<PostInfo>? PostsList { get; set; }
-
-    protected override async Task OnInitializedAsync()
-    {
-        await base.OnInitializedAsync();
-        PostsList = await _postsListTask;
-    }
-
-}

@@ -62,46 +62,9 @@
     <Giscus Repo="Jisu-Woniu/Blog" RepoId="R_kgDOG4JZsQ"
             Category="Announcements" CategoryId="DIC_kwDOG4JZsc4CBQ54"
             EmitMetadata="false" InputPosition="InputPosition.Top" Lang="zh-CN"
-            Mapping="Mapping.PathName" ReactionsEnabled="true"
-            Theme="light" />
+            Mapping="Mapping.PathName" ReactionsEnabled="true" Theme="light" />
 }
 else if (_notFound)
 {
     <NotFound />
-}
-
-@code {
-    PostInfo Post { get; set; } = null!;
-    string Content { get; set; } = string.Empty;
-
-    [Parameter]
-    public string UrlTitle { get; set; } = null!;
-
-    string Title { get; set; } = string.Empty;
-    DateTimeOffset PostTime { get; set; }
-    bool _fetched;
-    bool _notFound;
-
-    protected override async Task OnInitializedAsync()
-    {
-        await base.OnInitializedAsync();
-        Dictionary<string, PostInfo> postsMap = await _postsMapTask;
-        if (string.IsNullOrEmpty(UrlTitle) || !postsMap.ContainsKey(UrlTitle))
-        {
-            _notFound = true;
-            return;
-        }
-        Post = postsMap[UrlTitle]; //(await _httpClient.GetFromJsonAsync<List<PostInfo>>("posts-info.json"))?[0];
-        string markdownText = await _httpClient.GetStringAsync($"posts-src/{UrlTitle}.md");
-        Title = Post.Title;
-        PostTime = Post.PostTime;
-        Content = //Regex.Replace(
-        Markdown.ToHtml(markdownText, _pipeline)//,
-                                                //"<a ([\\w\\W\\r\\n]*?)</a>",
-                                                //"<fluent-anchor appearance=\"hypertext\" $1</fluent-anchor>",
-                                                //RegexOptions.Compiled)
-        ;
-        _fetched = true;
-    }
-
 }
