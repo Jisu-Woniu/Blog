@@ -135,6 +135,10 @@ code {
     font-size: 85%;
 }
 
+img {
+    max-width: 100%;
+}
+
 @media (min-width: 641px) {
     #nav-toggler {
         display: none !important;
