@@ -3,6 +3,8 @@
 @inject HttpClient _httpClient
 @inject Task<IList<PostInfo>> _postsListTask
 
+<PageTitle>博文</PageTitle>
+
 <h1>博文</h1>
 
 @if (PostsList != null)
@@ -13,9 +15,9 @@
         {
             <li class="post-info">
                 <h2 class="post-title">
-                    <FluentAnchor Appearance="Appearance.Hypertext" Href=@($"/posts/detail/{post.UrlTitle}")>
+                    <a href="@($"/posts/detail/{post.UrlTitle}")">
                         <span class="post-link">@post.Title</span>
-                    </FluentAnchor>
+                    </a>
                 </h2>
                 <p>@post.PostTime.SiteFormat()</p>
             </li>
