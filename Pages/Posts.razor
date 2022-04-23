@@ -1,7 +1,6 @@
 ﻿@page "/posts"
 @using Blog.Models
-@inject HttpClient _httpClient
-@inject Task<IList<PostInfo>> _postsListTask
+@inject Task<IList<PostInfo>> PostsListTask
 
 <PageTitle>博文</PageTitle>
 

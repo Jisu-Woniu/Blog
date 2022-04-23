@@ -2,10 +2,10 @@
 @using Markdig
 @using GiscusBlazor
 @using Blog.Models
-@inject NavigationManager _navigationManager
-@inject HttpClient _httpClient
-@inject MarkdownPipeline _pipeline
-@inject Task<Dictionary<string, PostInfo>> _postsMapTask
+@inject NavigationManager NavigationManager
+@inject HttpClient HttpClient
+@inject MarkdownPipeline Pipeline
+@inject Task<Dictionary<string, PostInfo>> PostsMapTask
 
 @if (_fetched)
 {

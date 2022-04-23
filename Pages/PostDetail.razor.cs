@@ -16,17 +16,17 @@ public partial class PostDetail
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        Dictionary<string, PostInfo> postsMap = await _postsMapTask;
+        Dictionary<string, PostInfo> postsMap = await PostsMapTask;
         if (string.IsNullOrEmpty(UrlTitle) || !postsMap.ContainsKey(UrlTitle))
         {
             _notFound = true;
             return;
         }
         Post = postsMap[UrlTitle];
-        string markdownText = await _httpClient.GetStringAsync($"posts-src/{UrlTitle}.md");
+        string markdownText = await HttpClient.GetStringAsync($"posts-src/{UrlTitle}.md");
         Title = Post.Title;
         PostTime = Post.PostTime;
-        Content = Markdig.Markdown.ToHtml(markdownText, _pipeline);
+        Content = Markdig.Markdown.ToHtml(markdownText, Pipeline);
         _fetched = true;
     }
 }

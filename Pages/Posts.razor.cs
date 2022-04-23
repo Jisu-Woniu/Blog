@@ -7,6 +7,6 @@ public partial class Posts
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        PostsList = await _postsListTask;
+        PostsList = await PostsListTask;
     }
 }
