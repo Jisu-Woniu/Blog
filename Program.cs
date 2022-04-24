@@ -26,14 +26,6 @@ builder.Services.AddScoped(
 );
 
 builder.Services.AddScoped(
-    async sp =>
-    {
-        IList<PostInfo> list = await (sp.GetService<Task<IList<PostInfo>>>()!);
-        return list.ToDictionary(p => p.UrlTitle);
-    }
-);
-
-builder.Services.AddScoped(
     sp => sp.GetService<HttpClient>()!.GetFromJsonAsync<IList<LinkInfo>>("links-info.json")
 );
 
