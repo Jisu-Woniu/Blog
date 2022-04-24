@@ -1,26 +1,21 @@
 [
 	{
-		"name": "Firefox",
-		"description": "My favorite browser",
-		"link": "https://www.mozilla.org/zh-CN/firefox/browsers/",
-		"icon": "https://www.mozilla.org/media/protocol/img/logos/firefox/browser/logo.eb1324e44442.svg"
+		"name": "Cxy621",
+		"description": "后端的神，什么时候当主席？",
+		"link": "https://cxy621.top/",
+		"icon": "https://cdn.jsdelivr.net/gh/ChenXinYang621/ChenXinYang621.github.io/medias/avatar.jpg"
 	},
 	{
-		"name": "Edge",
-		"description": "A browser with Blazor debugging support.",
-		"link": "https://www.microsoft.com/zh-cn/edge",
-		"icon": "https://edgefrecdn.azureedge.net/welcome/sitecdn/img/icon-shadow.9976a83.png"
+		"name": "Moroshima",
+		"description": "别摸鱼了，快起来做锅",
+		"link": "https://kuroshima.top/",
+		"icon": "https://kuroshima.top/wp-content/uploads/2022/02/Moroshima.png"
 	},
 	{
-		"name": "Chrome",
-		"description": "A browser from a privacy robber.",
-		"link": "https://www.google.cn/chrome/",
-		"icon": "https://www.google.cn/chrome/static/images/chrome-logo.svg"
-	},
-	{
-		"name": "Safari",
-		"description": "It works great on Apple devices, but on Windows...",
-		"link": "https://www.apple.com.cn/safari/",
-		"icon": "https://support.apple.com/library/content/dam/edam/applecare/images/en_US/applecare/macos-big-sur-safari-icon-ma.jpg"
+		"name": "Maxtune Lee",
+		"description": "学弟，菜菜，带带",
+		"link": "https://mxte.cc/",
+		"icon": "https://mxte.cc/wp-content/uploads/2020/10/cropped-60775796.png"
 	}
+
 ]

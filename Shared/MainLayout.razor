@@ -15,7 +15,9 @@
         <div class="content px-4">
             <p>
                 Built with
-                <i class="ms-Icon ms-Icon--HeartFill" style="color: red;"></i>
+                <span style="fill: red">
+                    <FluentIcon Filled="true" Name="@(FluentIcons.Heart)" Size="IconSize.Size20" UseAccentColor="false" />
+                </span>
                 and Blazor WebAssembly,
                 powered by @(RuntimeInformation.FrameworkDescription).
             </p>
