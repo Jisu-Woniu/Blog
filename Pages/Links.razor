@@ -1,0 +1,23 @@
+﻿@page "/links"
+@inject Task<IList<LinkInfo>> LinksTask
+
+<PageTitle>友情链接</PageTitle>
+
+<h1>来认识一下我的好朋友们</h1>
+<div class="links">
+    @if (LinksList is not null)
+    {
+        foreach (LinkInfo link in LinksList)
+        {
+            <div class="link-card">
+                <div class="link-icon" style="background-image: url(@link.Icon)" />
+                <h3>
+                    <a href="@link.Link" target="_blank">
+                        @link.Name
+                    </a>
+                </h3>
+                <p>@link.Description</p>
+            </div>
+        }
+    }
+</div>

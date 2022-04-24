@@ -1,0 +1,31 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema",
+	"title": "JSON Schema for post-info.json",
+
+	"type": "array",
+	"items": {
+		"type": "object",
+		"required": [
+			"name",
+			"description",
+			"link",
+			"icon"
+		],
+		"properties": {
+			"name": {
+				"type": "string"
+			},
+			"description": {
+				"type": "string"
+			},
+			"link": {
+				"type": "string",
+				"format": "uri"
+			},
+			"icon": {
+				"type": "string",
+				"format": "uri"
+			}
+		}
+	}
+}

@@ -1,0 +1,26 @@
+[
+	{
+		"name": "Firefox",
+		"description": "My favorite browser",
+		"link": "https://www.mozilla.org/zh-CN/firefox/browsers/",
+		"icon": "https://www.mozilla.org/media/protocol/img/logos/firefox/browser/logo.eb1324e44442.svg"
+	},
+	{
+		"name": "Edge",
+		"description": "A browser with Blazor debugging support.",
+		"link": "https://www.microsoft.com/zh-cn/edge",
+		"icon": "https://edgefrecdn.azureedge.net/welcome/sitecdn/img/icon-shadow.9976a83.png"
+	},
+	{
+		"name": "Chrome",
+		"description": "A browser from a privacy robber.",
+		"link": "https://www.google.cn/chrome/",
+		"icon": "https://www.google.cn/chrome/static/images/chrome-logo.svg"
+	},
+	{
+		"name": "Safari",
+		"description": "It works great on Apple devices, but on Windows...",
+		"link": "https://www.apple.com.cn/safari/",
+		"icon": "https://support.apple.com/library/content/dam/edam/applecare/images/en_US/applecare/macos-big-sur-safari-icon-ma.jpg"
+	}
+]

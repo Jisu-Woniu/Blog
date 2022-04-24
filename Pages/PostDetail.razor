@@ -5,7 +5,7 @@
 @inject NavigationManager NavigationManager
 @inject HttpClient HttpClient
 @inject MarkdownPipeline Pipeline
-@inject Task<Dictionary<string, PostInfo>> PostsMapTask
+@inject Task<List<PostInfo>> PostsListTask
 
 @if (_fetched)
 {
@@ -32,16 +32,16 @@
     else
     {
         <p class="endnote">
-            <span>本文</span>
-            @if (Post.Repost.OriginalAuthor is string Author)
+            @* 本文(原作者${author}，)原文发布于${OriginalUrl}(，根据(${license}许可协议进行许可))。 *@
+            本文
+            @if (Post.Repost.OriginalAuthor is string author)
             {
-                <span>原作者@(Author)，</span>
+                <text>原作者@(author)，</text>
             }
-            <span>原文发布于@(Post.Repost.OriginalUrl)</span>
+            原文发布于@(Post.Repost.OriginalUrl)
             @if (Post.Repost.License is string license)
             {
-                <span>，</span>
-                <span>根据</span>
+                <text>，根据</text>
                 @if (Post.Repost.LicenseUrl is Uri url)
                 {
 
@@ -53,9 +53,9 @@
                 {
                     @license
                 }
-                <span>许可协议进行许可</span>
+                <text>许可协议进行许可</text>
             }
-            <span>。</span>
+            。
         </p>
     }
 

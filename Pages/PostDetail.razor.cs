@@ -2,27 +2,37 @@ namespace Blog.Pages;
 
 public partial class PostDetail
 {
-    PostInfo Post { get; set; } = null!;
-    string Content { get; set; } = "";
+    private PostInfo Post { get; set; } = null!;
+    private string Content { get; set; } = "";
 
     [Parameter]
     public string UrlTitle { get; set; } = null!;
 
-    string Title { get; set; } = "";
-    DateTimeOffset PostTime { get; set; }
-    bool _fetched;
-    bool _notFound;
+    private string Title { get; set; } = "";
+    private DateTimeOffset PostTime { get; set; }
 
-    protected override async Task OnInitializedAsync()
+    private bool _fetched;
+    private bool _notFound;
+
+    override protected async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        Dictionary<string, PostInfo> postsMap = await PostsMapTask;
-        if (string.IsNullOrEmpty(UrlTitle) || !postsMap.ContainsKey(UrlTitle))
+        //Dictionary<string, PostInfo> postsMap = await PostsMapTask;
+        IList<PostInfo> postsList = await PostsListTask;
+
+        if (
+            !string.IsNullOrEmpty(UrlTitle)
+            && postsList.FirstOrDefault(post => post.UrlTitle == UrlTitle) is PostInfo post
+        )
+        {
+            Post = post;
+        }
+        else
         {
             _notFound = true;
             return;
         }
-        Post = postsMap[UrlTitle];
+
         string markdownText = await HttpClient.GetStringAsync($"posts-src/{UrlTitle}.md");
         Title = Post.Title;
         PostTime = Post.PostTime;
