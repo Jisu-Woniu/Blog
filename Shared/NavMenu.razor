@@ -11,12 +11,10 @@
         <FluentButton @onclick="ToggleNavMenu" id="nav-toggler">
             @if (collapseNavMenu)
             {
-                @*<i class="ms-Icon ms-Icon--CalculatorEqualTo toggler-icon" />*@
                 <FluentIcon Name="@(FluentIcons.Add)" Filled="false" Size="IconSize.Size20" UseAccentColor="false" />
             }
             else
             {
-                @*<i class="ms-Icon ms-Icon--CalculatorMultiply toggler-icon" />*@
                 <FluentIcon Name="@(FluentIcons.Dismiss)" Filled="false" Size="IconSize.Size20" UseAccentColor="false" />
             }
         </FluentButton>
@@ -27,17 +25,23 @@
     <nav class="flex-row nav-menu">
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span aria-hidden="true" class="ms-Icon ms-Icon--Home"></span> 首页
+                <FluentIcon Name="@(FluentIcons.Home)"
+                            Filled="false" Size="IconSize.Size20" UseAccentColor="false" />
+                <span class="text-margin-left">首页</span>
             </NavLink>
         </div>
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="posts">
-                <span aria-hidden="true" class="ms-Icon ms-Icon--OpenEnrollment"></span> 博文
+                <FluentIcon Name="@(FluentIcons.TextBulletListSquareEdit)"
+                            Filled="false" Size="IconSize.Size20" UseAccentColor="false" />
+                <span class="text-margin-left">博文</span>
             </NavLink>
         </div>
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="links">
-                <span aria-hidden="true" class="ms-Icon ms-Icon--ContactLink"></span> 友情链接
+                <FluentIcon Name="@(FluentIcons.ContactCardLink)"
+                            Filled="false" Size="IconSize.Size20" UseAccentColor="false" />
+                <span class="text-margin-left">友情链接</span>
             </NavLink>
         </div>
     </nav>
