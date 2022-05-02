@@ -4,35 +4,3 @@
     justify-content: center;
     width: fit-content;
 }
-
-.link-card {
-    display: flex;
-    box-sizing: border-box;
-    background: rgba(255, 255, 255, 0.75);
-    color: #212121;
-    border: 1px solid #f3f3f3;
-    border-radius: 8px;
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.14);
-    margin: 10px;
-    padding: 1em;
-    align-items: center;
-}
-
-.link-icon {
-    width: 6em;
-    height: 6em;
-    background-size: cover;
-    background-repeat: no-repeat;
-    border-radius: 33%;
-    margin-right: 10px;
-}
-
-.link-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-    .link-content > p {
-        margin: 0px;
-    }

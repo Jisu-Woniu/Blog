@@ -9,17 +9,7 @@
     {
         foreach (LinkInfo link in LinksList)
         {
-            <div class="link-card">
-                <div class="link-icon" style="background-image: url(@link.Icon)" />
-                <div class="link-content">
-                    <h3>
-                        <a href="@link.Link" target="_blank">
-                            @link.Name
-                        </a>
-                    </h3>
-                    <p>@link.Description</p>
-                </div>
-            </div>
+            <InfoCard Link="@(link.Link)" Name="@(link.Name)" Icon="@(link.Icon)" Description="@(link.Description)" />
         }
     }
 </div>

@@ -1,0 +1,21 @@
+﻿@if (Name != null)
+{
+    <div class="link-card">
+        <div class="link-icon" style="background-image: url(@Icon)" />
+        <div class="link-content">
+            <h3>
+                @if (Link == null)
+                {
+                    <text>@Name</text>
+                }
+                else
+                {
+                    <a href="@Link" target="_blank">
+                        @Name
+                    </a>
+                }
+            </h3>
+            <p>@Description</p>
+        </div>
+    </div>
+}

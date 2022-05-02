@@ -7,8 +7,6 @@
 }
 
 .not-found-icon {
-    background-image: url(/Asset/Notfound.svg);
-    background-size: contain;
     height: 5em;
     width: 5em;
 }
