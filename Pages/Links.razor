@@ -9,7 +9,9 @@
     {
         foreach (LinkInfo link in LinksList)
         {
-            <InfoCard Link="@(link.Link)" Name="@(link.Name)" Icon="@(link.Icon)" Description="@(link.Description)" />
+            <InfoCard Link="@(link.Link)" Name="@(link.Name)" Icon="@(link.Icon)">
+                @link.Description
+            </InfoCard>
         }
     }
 </div>

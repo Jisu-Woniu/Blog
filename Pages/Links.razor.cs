@@ -4,9 +4,10 @@ public partial class Links
 {
     private IList<LinkInfo>? LinksList;
 
-    override protected async Task OnInitializedAsync()
+    protected override async Task OnParametersSetAsync()
     {
-        await base.OnInitializedAsync();
+        await base.OnParametersSetAsync();
+
         LinksList = await LinksTask;
     }
 }

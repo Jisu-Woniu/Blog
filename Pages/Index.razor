@@ -10,7 +10,26 @@
 
 <hr />
 
-<InfoCard Name="极速蜗牛" Icon="@icon" Description="@description" />
+<InfoCard Name="极速蜗牛" Icon="@icon">
+    <p>
+        C# 菜鸡，对 C# 和 .NET 有着狂热的执念。
+    </p>
+    <figure>
+        <blockquote class="blockquote">
+            <p class="text-decoration-line-through">
+                这个功能实现不了？来用 C#！
+            </p>
+        </blockquote>
+        <figcaption class="figure-caption text-end text-decoration-line-through show-on-hover">
+            不是我说的，别看我
+        </figcaption>
+    </figure>
+</InfoCard>
+<hr />
+
+<p>
+    纳粹主义是人类共同的敌人，坚定反对种族主义、民粹主义、新纳粹主义
+</p>
 
 <hr />
 
@@ -22,5 +41,4 @@
 
 @code {
     Uri icon = new Uri("Asset/avatar.jpg", UriKind.Relative);
-    string description = "C# 菜鸡，对 .NET 有着狂热的执念。\n所以你们什么时候来学 C#？";
 }

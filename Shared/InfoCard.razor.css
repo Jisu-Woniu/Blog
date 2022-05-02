@@ -26,6 +26,6 @@
     justify-content: center;
 }
 
-    .link-content > p {
-        margin: 0px;
-    }
+.link-content p {
+    margin: 0px;
+}

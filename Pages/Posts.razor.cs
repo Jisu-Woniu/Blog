@@ -4,9 +4,9 @@ public partial class Posts
 {
     private IList<PostInfo>? PostsList { get; set; }
 
-    override protected async Task OnInitializedAsync()
+    override protected async Task OnParametersSetAsync()
     {
-        await base.OnInitializedAsync();
+        await base.OnParametersSetAsync();
         PostsList = await PostsListTask;
     }
 }

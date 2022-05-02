@@ -10,10 +10,22 @@ public partial class InfoCard
     public string Name { get; set; } = null!;
 
     [Parameter]
-    [EditorRequired]
+    // [EditorRequired]
     public string Description { get; set; } = null!;
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 
     [Parameter]
     [EditorRequired]
     public Uri Icon { get; set; } = null!;
+
+    bool _display = false;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+
+        _display = true;
+    }
 }

@@ -9,9 +9,16 @@ WebAssemblyHostBuilder builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
-builder.Services.AddScoped(
-    _ => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) }
+builder.Services.AddHttpClient();
+builder.Services.AddHttpClient(
+    "Local",
+    httpClient =>
+    {
+        httpClient.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress);
+    }
 );
+
+//builder.Services.AddTransient(sp => sp.GetService<IHttpClientFactory>()!.CreateClient());
 
 builder.Services.AddFluentUIComponents();
 
@@ -25,11 +32,20 @@ builder.Services.AddScoped(
 );
 
 builder.Services.AddScoped(
-    sp => sp.GetService<HttpClient>()!.GetFromJsonAsync<IList<PostInfo>>("posts-info.json")
+    sp =>
+    {
+        HttpClient client = sp.GetService<IHttpClientFactory>()!.CreateClient("Local");
+
+        return client.GetFromJsonAsync<IList<PostInfo>>("posts-info.json");
+    }
 );
 
 builder.Services.AddScoped(
-    sp => sp.GetService<HttpClient>()!.GetFromJsonAsync<IList<LinkInfo>>("links-info.json")
+    sp =>
+    {
+        HttpClient client = sp.GetService<IHttpClientFactory>()!.CreateClient("Local");
+        return client.GetFromJsonAsync<IList<LinkInfo>>("links-info.json");
+    }
 );
 
 await builder.Build().RunAsync();

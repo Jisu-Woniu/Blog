@@ -32,8 +32,11 @@ public partial class PostDetail
             _notFound = true;
             return;
         }
-
-        string markdownText = await HttpClient.GetStringAsync($"posts-src/{UrlTitle}.md");
+        string markdownText = "";
+        using (HttpClient client = HttpClientFactory.CreateClient("Local"))
+        {
+            markdownText = await client.GetStringAsync($"posts-src/{UrlTitle}.md");
+        }
         Title = Post.Title;
         PostTime = Post.PostTime;
         Content = Markdig.Markdown.ToHtml(markdownText, Pipeline);
