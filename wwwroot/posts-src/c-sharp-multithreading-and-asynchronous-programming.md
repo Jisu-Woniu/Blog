@@ -2,11 +2,13 @@
 
 ## 多线程
 
-随着计算机程序复杂度的提升，程序对计算机资源的消耗开始增加。队列式的处理已不能解决一些实际问题，我们急需一种更高效的方式利用计算机资源，于是多线程诞生了。
+随着计算机程序愈发复杂，程序对计算机资源的消耗日渐增长，队列式的指令处理已不能解决一些实际问题，我们亟需一种更高效的方式利用计算机资源，于是多线程诞生了。
 
 现代操作系统基本都支持多进程、多线程操作。通常一个程序作为一个进程执行，一个进程中可以按不同任务分配多个线程。
 
-![Multithreaded_process.svg](posts-src/image/c-sharp-multithreading-and-asynchronous-programming/multithreaded-process.svg)
+> 部分编程语言（如 Python、Kotlin）有协程（Coroutine）概念，协程是对线程的进一步细分，用于在线程内部管理、协调任务。
+
+![多线程的进程](posts-src/image/c-sharp-multithreading-and-asynchronous-programming/multithreaded-process.svg)
 
 一个进程通常包含一个主线程，用于协调其余线程、控制用户界面等。为了避免内存泄漏等问题，主线程一般应等待其他线程结束后才结束。
 
@@ -110,7 +112,7 @@ Unhandled exception. System.Exception: Exception from thread tProblem
 
 线程的错误必须在线程内部处理，否则将会导致程序崩溃。
 
-### 线程池（`ThreadPool`）
+### 线程池 `ThreadPool`
 
 为了防止过多线程占用大量资源，我们可以使用线程池管理大量线程。线程池会自动分配线程的执行顺序，实现 CPU 与 RAM 的资源调度。
 
@@ -171,7 +173,7 @@ Work6 in ThreadPool done.
 Exiting...
 ```
 
-## 异步编程
+## 使用 `Task` 进行异步编程
 
 手动管理线程消耗资源，线程池管理线程不够灵活。那有没有更高效的管理并行计算、避免阻塞的方法呢？C# 的异步编程技术可以解决这个问题。
 
@@ -181,7 +183,7 @@ Exiting...
 - 基于事件的异步编程模式（EAP）；
 - 异步编程模型（APM）。
 
-其中最为简单的是基于任务的异步编程模式，这一编程模式是微软最推荐的编程模式，并被包括 JavaScript、Python、Rust 等语言学习、采用。
+其中最为简单的是基于任务的异步编程模式，这一编程模式也是目前业内最推荐的编程模式，并被包括 JavaScript、Python、Rust 在内的其他语言学习、采用。
 
 本节课我们主要介绍基于任务的异步编程模式，今后提到异步编程，若不额外介绍，均表示基于任务的异步编程模式。
 
@@ -191,7 +193,7 @@ Exiting...
 
 `Task<TResult>` 是 `Task` 的泛型版本，它表示一个可返回一个值的任务。在这个层面上，`Task` 可以（不规范地）看作 `Task<void>`。
 
-> 在其他编程语言中，`Task` 可能有不同的名称，如 `Promise`、`Future` 等，在使用前应查阅对应的文档。
+> 在其他编程语言中，`Task` 可能有不同的名称，如 `Promise`、`Future`、`defer` 等，在使用前应查阅对应语言的文档。
 
 等待 `Task` 完成或获取 `Task<TResult>` 执行结果的关键字是 `await`，该关键字只能在异步上下文中使用。异步上下文主要指使用 `async` 关键字修饰的方法（或 C# 10 中由 `async` 关键字修饰的 lambda 表达式）。
 
@@ -207,9 +209,9 @@ Exiting...
 
 ### 使用异步 I/O 函数执行 I/O 绑定工作
 
-I/O 绑定工作指需要从 I/O 操作中获取结果的操作，如：网络请求、磁盘读写，但一般不包括用户输入。
+I/O 绑定工作指需要从 I/O 操作中获取结果的操作，如：网络请求、磁盘读写等。因为 I/O 操作响应时间通常比程序代码的执行慢，如果持续等待可能导致程序长时间阻塞、假死，所以应该尽可能使用异步方式执行这部分代码。
 
-I/O 绑定工作通常使用系统提供的异步 I/O 方法执行。系统中绝大多数 I/O 操作方法都提供了异步的版本，如 `File.ReadAllTextAsync`、`HttpClient.GetStringAsync`、`HttpClient.PostAsync` 等，我们应当尽量使用这些异步方法进行 I/O 操作。
+I/O 绑定工作通常使用系统提供的异步 I/O 方法执行。系统中绝大多数 I/O 操作方法都提供了异步的版本，如 `File.ReadAllTextAsync`、`HttpClient.GetStringAsync`、`DbContext.SaveChangesAsync` 等。当这些异步方法存在时，我们通常应当尽量使用这些异步方法进行 I/O 操作。
 
 ```csharp
 using System.Net.Http;
@@ -249,11 +251,11 @@ Working...
 
 ### 使用 `Task.Run` 执行 CPU 绑定工作
 
-与 I/O 绑定工作不同，CPU 绑定工作指需要使用 CPU 进行大量计算的工作。这些工作一般没有对应的异步操作方法，只有一系列同步操作。
+与 I/O 绑定工作不同，CPU 绑定工作指需要使用 CPU 进行大量计算的工作，如数学运算、方案规划等等。这些工作一般没有对应的异步操作方法，只有一系列同步操作。
 
 我们可以使用 `Task.Run` 方法将一系列同步操作“打包”成一个 `Task` 对象，并在后台执行。
 
-`Task.Run` 是一个泛型方法，最常用的方式是将一个包含同步操作的 lambda 表达式传递给它，让它在后台执行。
+`Task.Run` 是一个泛型方法，最常用的方式是将一个包含同步操作的 lambda 表达式传递给它，让该同步操作异步执行。
 
 ```csharp
 using System.Threading;
@@ -287,21 +289,21 @@ class Canteen
         // 模拟耗时操作，实际等待应使用 Task.Delay
         Thread.Sleep(Random.Shared.Next(500, 1000));
 
-        Console.WriteLine("Finished cooking " + dishName);
+        Console.WriteLine($"Finished cooking {dishName}");
         return new Dish(dishName);
     }
 
     public static Dish Order(string dishName)
     {
         Dish dish = Cook(dishName);
-        Console.WriteLine("Here is your {0}!", dishName);
+        Console.WriteLine($"Here is your {dishName}!");
         return dish;
     }
 
     public static async Task<Dish> OrderAsync(string dishName)
     {
         Dish dish = await Task.Run(() => Cook(dishName));
-        Console.WriteLine("Here is your {0}!", dishName);
+        Console.WriteLine($"Here is your {dishName}!");
         return dish;
     }
 }
@@ -324,6 +326,30 @@ Finished cooking Mapo Tofu
 Here is your Mapo Tofu!
 ```
 
+### 异步 Lambda 表达式
+
+C# 允许使用异步 Lambda 表达式，这些表达式使用 `async` 修饰，
+
+异步 Lambda 表达式可以在方法体中使用 `await` 关键字等待其他异步方法完成。
+
+异步 Lambda 表达式类型为 `Action<TParameters...>`、`Func<TParameters..., Task>` 或 `Func<TParameters..., Task<TResult>>`，而不是一般 Lambda 表达式的 `Func<TParameters..., TResult>`。
+
+正如异步方法应避免使用 `void` 返回值，为了正确处理异步 Lambda 表达式的结果，应避免接收方直接接收 `Action` 类型的异步 Lambda 表达式。
+
+以下代码取自我的博客系统源码的 [Program.cs 文件](https://github.com/Jisu-Woniu/Blog/blob/9b85bc1622fdad82e97cfb8f1e09247c562cd9cb/Program.cs)（最新版本由于逻辑重构，已移除该代码段）：
+
+```csharp
+builder.Services.AddScoped(
+    async sp =>
+    {
+        // 从注册的服务中获取博文列表
+        IList<PostInfo> list = await (sp.GetService<Task<IList<PostInfo>>>()!);
+        // 将博文列表转换为 Dictionary 类型
+        return list.ToDictionary(p => p.UrlTitle);
+    }
+);
+```
+
 ### `CancellationToken` 的使用
 
 Web 服务器可能收到大量请求，如果某个请求超时，那么可能会发生连锁反应，导致服务器崩溃。另外对于用户已经取消的请求，我们通常也不需要继续处理。
@@ -334,16 +360,16 @@ Web 服务器可能收到大量请求，如果某个请求超时，那么可能�
 
 接受 `CancellationToken` 的方法可以有多种方法结束自身的执行：
 
-- 使用 `token.ThrowIfCancellationRequested()` 抛出 `OperationCanceledException` 异常；
-- 在循环中监听 `token.IsCancellationRequested` 属性，如果结果为 `true`，则退出循环；
-- 将 `token` 传给嵌套的异步操作。
+- 使用 `token.ThrowIfCancellationRequested()` 抛出 `OperationCanceledException` 异常，强制退出方法；
+- 在循环操作中监听 `token.IsCancellationRequested` 属性，如果结果为 `true`，则退出循环；
+- 将 `token` 传给内层嵌套的异步操作。
 
 示例：
 
 ```csharp
-CancellationTokenSource ctSource = new CancellationTokenSource();
-Task t = Task.Delay(1000, ctSource.Token);
-ctSource.CancelAfter(500);
+CancellationTokenSource tokenSource = new CancellationTokenSource();
+Task t = Task.Delay(1000, tokenSource.Token);
+tokenSource.CancelAfter(500);
 try
 {
     await t;
@@ -362,14 +388,16 @@ System.Threading.Tasks.TaskCanceledException: A task was canceled.
 ```
 
 ```csharp
-CancellationTokenSource ctSource = new CancellationTokenSource();
-CancellationToken token = ctSource.Token;
+CancellationTokenSource tokenSource = new CancellationTokenSource();
+CancellationToken token = tokenSource.Token;
 token.Register(
     () =>
     {
         Console.WriteLine("Action canceled");
     }
 );
+
+// 自旋循环等待，可以替代 Task.Delay 进行等待操作
 SpinWait sw = new SpinWait();
 Task task = Task.Run(
     () =>
@@ -382,7 +410,7 @@ Task task = Task.Run(
     },
     token
 );
-ctSource.CancelAfter(50);
+tokenSource.CancelAfter(10);
 await task;
 ```
 
@@ -398,21 +426,15 @@ Running...
 Running...
 Running...
 Running...
-Running...
-Running...
-Running...
-Running...
-Running...
-Running...
-Running...
-Running...
-Running...
-Running...
-Running...
-Running...
 Action canceled
 ```
 
 ## 总结
 
 有关 C# 的异步与多线程操作，还有许多可以深入研究的内容。同时，异步编程也是 Web 开发中提升并发量、优化资源分配的重要手段，学习好异步编程，可以为 Web 开发打下坚实的基础。
+
+## 参考资料
+
+- [多线程 - 维基百科](https://zh.wikipedia.org/zh-cn/%E5%A4%9A%E7%BA%BF%E7%A8%8B)
+- [C# 中的异步编程 | Microsoft Docs](https://docs.microsoft.com/zh-cn/dotnet/csharp/programming-guide/concepts/async/)
+- [c# - Async / Await Lambdas - Stack Overflow](https://stackoverflow.com/questions/25647062/async-await-lambdas)
