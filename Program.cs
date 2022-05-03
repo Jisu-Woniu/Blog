@@ -18,8 +18,6 @@ builder.Services.AddHttpClient(
     }
 );
 
-//builder.Services.AddTransient(sp => sp.GetService<IHttpClientFactory>()!.CreateClient());
-
 builder.Services.AddFluentUIComponents();
 
 builder.Services.AddScoped(
@@ -47,5 +45,10 @@ builder.Services.AddScoped(
         return client.GetFromJsonAsync<IList<LinkInfo>>("links-info.json");
     }
 );
+
+if (builder.HostEnvironment.IsProduction())
+{
+    builder.Logging.SetMinimumLevel(LogLevel.Warning);
+}
 
 await builder.Build().RunAsync();

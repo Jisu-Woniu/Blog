@@ -19,13 +19,4 @@ public partial class InfoCard
     [Parameter]
     [EditorRequired]
     public Uri Icon { get; set; } = null!;
-
-    bool _display = false;
-
-    protected override async Task OnParametersSetAsync()
-    {
-        await base.OnParametersSetAsync();
-
-        _display = true;
-    }
 }

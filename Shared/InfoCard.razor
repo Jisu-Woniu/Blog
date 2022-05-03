@@ -1,10 +1,9 @@
 ﻿@if (Name != null)
 {
     <div class="link-card">
-        @if (_display)
-        {
-            <div class="link-icon ratio ratio-1x1" style="background-image: url(@Icon)" />
-        }
+
+        <img class="link-icon ratio ratio-1x1" src="@Icon" alt="" />
+
         <div class="link-content">
             <h3>
                 @if (Link == null)
