@@ -1,3 +1,5 @@
+using Microsoft.JSInterop;
+
 namespace Blog.Pages;
 
 public partial class PostDetail
@@ -41,5 +43,11 @@ public partial class PostDetail
         PostTime = Post.PostTime;
         Content = Markdig.Markdown.ToHtml(markdownText, Pipeline);
         _fetched = true;
+    }
+
+    override protected async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await JSRuntime.InvokeVoidAsync("Prism.highlightAll");
+        await base.OnAfterRenderAsync(firstRender);
     }
 }

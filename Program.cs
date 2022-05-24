@@ -1,7 +1,5 @@
-using ColorCode.Common;
-using ColorCode.Styling;
 using Markdig;
-using Markdown.ColorCode;
+using Markdig.Prism;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Fast.Components.FluentUI;
 
@@ -21,12 +19,7 @@ builder.Services.AddHttpClient(
 builder.Services.AddFluentUIComponents();
 
 builder.Services.AddScoped(
-    _ =>
-    {
-        StyleDictionary sd = StyleDictionary.DefaultLight;
-        sd[ScopeName.PlainText].Background = "#FFdfe5ed";
-        return new MarkdownPipelineBuilder().UseAdvancedExtensions().UseColorCode(sd).Build();
-    }
+    _ => new MarkdownPipelineBuilder().UseAdvancedExtensions().UseBootstrap().UsePrism().Build()
 );
 
 builder.Services.AddScoped(
