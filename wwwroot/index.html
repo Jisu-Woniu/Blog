@@ -7,13 +7,13 @@
     <title>加载中……</title>
     <base href="/" />
     <link href="https://fastly.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"
-          crossorigin="anonymous" />
+        crossorigin="anonymous" />
     <link href="css/app.css" rel="stylesheet" />
     <link href="Blog.styles.css" rel="stylesheet" />
     <link href="css/prism.css" rel="stylesheet" />
     <link rel="icon" href="favicon.svg" />
     <script src="https://fastly.jsdelivr.net/npm/@fluentui/web-components/dist/web-components.min.js"
-            type="module"></script>
+        type="module"></script>
     <script src="https://fastly.jsdelivr.net/npm/giscus/+esm" type="module"></script>
 </head>
 
@@ -31,26 +31,8 @@
     </div>
     <script autostart="false" src="_framework/blazor.webassembly.js"></script>
     <script type="module">
-        import { BrotliDecode } from 'https://fastly.jsdelivr.net/gh/google/brotli@master/js/decode.min.js';
         Blazor.start({
             applicationCulture: 'zh-CN',
-            loadBootResource: function (type, name, defaultUri, integrity) {
-                if (type !== 'dotnetjs' && location.hostname !== 'localhost') {
-                    return (async function () {
-                        const response = await fetch(defaultUri + '.br', { cache: 'no-cache' });
-                        if (!response.ok) {
-                            throw new Error(response.statusText);
-                        }
-                        const originalResponseBuffer = await response.arrayBuffer();
-                        const originalResponseArray = new Int8Array(originalResponseBuffer);
-                        const decompressedResponseArray = BrotliDecode(originalResponseArray);
-                        const contentType = type ===
-                            'dotnetwasm' ? 'application/wasm' : 'application/octet-stream';
-                        return new Response(decompressedResponseArray,
-                            { headers: { 'content-type': contentType } });
-                    })();
-                }
-            }
         });
     </script>
     <script src="js/prism.js"></script>
