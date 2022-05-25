@@ -13,8 +13,8 @@ cat > output/package.json << EOF
         },
         "source": "wwwroot",
         "minifyHtml": {
-            "collapseWhitespace": true,
-            "removeComments": true
+            "collapseWhitespace": false,
+            "removeComments": false
         },
         "puppeteerArgs": [
             "--no-sandbox",
