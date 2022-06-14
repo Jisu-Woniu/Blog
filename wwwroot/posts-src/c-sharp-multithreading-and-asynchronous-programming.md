@@ -195,15 +195,17 @@ Exiting...
 
 > 在其他编程语言中，`Task` 可能有不同的名称，如 `Promise`、`Future`、`defer` 等，在使用前应查阅对应语言的文档。
 
-等待 `Task` 完成或获取 `Task<TResult>` 执行结果的关键字是 `await`，该关键字只能在异步上下文中使用。异步上下文主要指使用 `async` 关键字修饰的方法（或 C# 10 中由 `async` 关键字修饰的 lambda 表达式）。
+等待 `Task` 完成或获取 `Task<TResult>` 执行结果的关键字是 `await`，该关键字只能在异步上下文中使用。异步上下文主要指使用 `async` 关键字修饰的方法、lambda 表达式、匿名委托。
 
-由 `async` 标注的方法，其返回值必为以下三者之一：
+由 `async` 标注的方法，其返回值必为以下列出的类型之一：
 
 - `Task`
 - `Task<TResult>`
 - `void`（不推荐）
+- （C# 7.0 之后）具有 `GetAwaiter()` 方法的类型（如 `ValueTask<TResult>`）
+- （C# 8.0 之后）实现了 `IAsyncEnumerable<T>` 接口的类型
 
-除非必要，否则不建议使用 `void` 返回值，因为它可能会导致异常无法被正常捕获，或出现悬垂进程。一般只有当进行桌面开发，编写事件处理程序时才考虑使用。
+除非必要，否则不建议使用 `void` 返回值，因为它可能会导致异常无法被正常捕获，或使调用方无法得知方法执行状态。一般只有当进行桌面开发，编写事件处理程序时才考虑使用。
 
 表示异步操作的方法命名时应以 `Async` 结尾，如 `GetDataAsync`。
 
@@ -437,4 +439,5 @@ Action canceled
 
 - [多线程 - 维基百科](https://zh.wikipedia.org/zh-cn/%E5%A4%9A%E7%BA%BF%E7%A8%8B)
 - [C# 中的异步编程 | Microsoft Docs](https://docs.microsoft.com/zh-cn/dotnet/csharp/programming-guide/concepts/async/)
-- [c# - Async / Await Lambdas - Stack Overflow](https://stackoverflow.com/questions/25647062/async-await-lambdas)
+- [C# - Async / Await Lambdas - Stack Overflow](https://stackoverflow.com/questions/25647062/async-await-lambdas)
+- [The perils of async void - The Old New Thing](https://devblogs.microsoft.com/oldnewthing/20170721-00/?p=96665)
