@@ -106,7 +106,7 @@ catch (Exception e)
 ```plaintext
 Exception caught: Exception from main thread
 Unhandled exception. System.Exception: Exception from thread tProblem
-   at Program.<>c.<<Main>$>b__0_0() in **.cs:line 41
+   at Program.<>c.<&lt;Main>$>b__0_0() in **.cs:line 41
    at System.Threading.Thread.StartCallback()
 ```
 
