@@ -1,40 +1,55 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+            name="viewport"
+        />
+        <title>加载中……</title>
+        <base href="/" />
+        <link
+            href="https://fastly.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            crossorigin="anonymous"
+        />
+        <link href="css/app.css" rel="stylesheet" />
+        <link href="Blog.styles.css" rel="stylesheet" />
+        <link href="css/prism.css" rel="stylesheet" />
+        <link rel="icon" href="favicon.svg" />
+        <script
+            src="https://fastly.jsdelivr.net/npm/@fluentui/web-components/dist/web-components.min.js"
+            type="module"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://cdn.esm.sh/giscus?bundle"
+            type="module"
+            crossorigin="anonymous"
+        ></script>
+    </head>
 
-<head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
-    <title>加载中……</title>
-    <base href="/" />
-    <link href="https://fastly.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
-    <link href="css/app.css" rel="stylesheet" />
-    <link href="Blog.styles.css" rel="stylesheet" />
-    <link href="css/prism.css" rel="stylesheet" />
-    <link rel="icon" href="favicon.svg" />
-    <script src="https://fastly.jsdelivr.net/npm/@fluentui/web-components/dist/web-components.min.js" type="module" crossorigin="anonymous"></script>
-    <script src="https://cdn.esm.sh/giscus?bundle" type="module" crossorigin="anonymous"></script>
-</head>
+    <body>
+        <div id="app">
+            <div class="site-title">欢迎来到 JSWN 的博客</div>
+            <div class="loading-bar"></div>
+            <div class="loading-text">页面加载中，请稍候</div>
+        </div>
 
-<body>
-    <div id="app">
-        <div class="site-title">欢迎来到 JSWN 的博客</div>
-        <div class="loading-bar"></div>
-        <div class="loading-text">页面加载中，请稍候</div>
-    </div>
-
-    <div id="blazor-error-ui">
-        未知错误，请在 GitHub 上反馈（如自动消失请忽略）
-        <a class="reload" href="">刷新</a>
-        <a class="dismiss">🗙</a>
-    </div>
-    <script autostart="false" src="_framework/blazor.webassembly.js"></script>
-    <script type="module">
-        import { BrotliDecode } from 'https://fastly.jsdelivr.net/gh/google/brotli@master/js/decode.min.js'; Blazor.start({ applicationCulture: 'zh-CN', loadBootResource: function (type, name, defaultUri, integrity) { if (type !== 'dotnetjs' && location.hostname
-        !== 'localhost') { return (async function () { const response = await fetch(defaultUri + '.br', { cache: 'no-cache' }); if (!response.ok) { throw new Error(response.statusText); } const originalResponseBuffer = await response.arrayBuffer(); const
-        originalResponseArray = new Int8Array(originalResponseBuffer); const decompressedResponseArray = BrotliDecode(originalResponseArray); const contentType = type === 'dotnetwasm' ? 'application/wasm' : 'application/octet-stream'; return new Response(decompressedResponseArray,
-        { headers: { 'content-type': contentType } }); })(); } } });
-    </script>
-    <script src="js/prism.js"></script>
-</body>
-
+        <div id="blazor-error-ui">
+            未知错误，请在 GitHub 上反馈（如自动消失请忽略）
+            <a class="reload" href="">刷新</a>
+            <a class="dismiss">🗙</a>
+        </div>
+        <script
+            autostart="false"
+            src="_framework/blazor.webassembly.js"
+        ></script>
+        <script type="module">
+            Blazor.start({
+                applicationCulture: "zh-CN",
+            });
+        </script>
+        <script src="js/prism.js"></script>
+    </body>
 </html>
