@@ -368,72 +368,75 @@ Web 服务器可能收到大量请求，如果某个请求超时，那么可能�
 
 示例：
 
-```csharp
-CancellationTokenSource tokenSource = new CancellationTokenSource();
-Task t = Task.Delay(1000, tokenSource.Token);
-tokenSource.CancelAfter(500);
-try
-{
-    await t;
-}
-catch (Exception ex)
-{
-    Console.WriteLine(ex);
-}
-```
+1. 抛出异常：
 
-输出：
-
-```plaintext
-System.Threading.Tasks.TaskCanceledException: A task was canceled.
-   at Program.<Main>$(String[] args) in **.cs:line 6
-```
-
-```csharp
-CancellationTokenSource tokenSource = new CancellationTokenSource();
-CancellationToken token = tokenSource.Token;
-token.Register(
-    () =>
+    ```csharp
+    CancellationTokenSource tokenSource = new CancellationTokenSource();
+    Task t = Task.Delay(1000, tokenSource.Token);
+    tokenSource.CancelAfter(500);
+    try
     {
-        Console.WriteLine("Action canceled");
+        await t;
     }
-);
-
-// 自旋循环等待，可以替代 Task.Delay 进行等待操作
-SpinWait sw = new SpinWait();
-Task task = Task.Run(
-    () =>
+    catch (Exception ex)
     {
-        while (!token.IsCancellationRequested)
+        Console.WriteLine(ex);
+    }
+    ```
+
+    输出：
+
+    ```plaintext
+    System.Threading.Tasks.TaskCanceledException: A task was canceled.
+    ```
+
+2. 循环监听
+
+    ```csharp
+    CancellationTokenSource tokenSource = new CancellationTokenSource();
+    CancellationToken token = tokenSource.Token;
+    token.Register(
+        () =>
         {
-            Console.Write("Running...\n");
-            sw.SpinOnce();
+            Console.WriteLine("Action canceled");
         }
-    },
-    token
-);
-tokenSource.CancelAfter(10);
-await task;
-```
+    );
 
-可能的输出：
+    // 自旋循环等待，可以替代 Thread.Sleep 进行等待操作
+    SpinWait sw = new SpinWait();
+    Task task = Task.Run(
+        () =>
+        {
+            while (!token.IsCancellationRequested)
+            {
+                Console.Write("Running...\n");
+                sw.SpinOnce();
+            }
+        },
+        token
+    );
+    tokenSource.CancelAfter(10);
+    await task;
+    ```
 
-```plaintext
-Running...
-Running...
-Running...
-Running...
-Running...
-Running...
-Running...
-Running...
-Running...
-Action canceled
-```
+    可能的输出：
+
+    ```plaintext
+    Running...
+    Running...
+    Running...
+    Running...
+    Running...
+    Running...
+    Running...
+    Running...
+    Running...
+    Action canceled
+    ```
 
 ## 总结
 
-有关 C# 的异步与多线程操作，还有许多可以深入研究的内容。同时，异步编程也是 Web 开发中提升并发量、优化资源分配的重要手段，学习好异步编程，可以为 Web 开发打下坚实的基础。
+有关 C# 的异步与多线程操作，还有许多可以深入研究的内容。同时，异步编程也是 Web 开发中提升并发量、优化资源分配的重要手段。学习好异步编程，可以为 Web 开发打下坚实的基础。
 
 ## 参考资料
 
