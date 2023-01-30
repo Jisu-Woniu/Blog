@@ -8,18 +8,18 @@
 
 @if (PostsList != null)
 {
-    <ul>
+        <ul>
 
         @foreach (PostInfo post in PostsList)
         {
-            <li class="post-info">
-                <h2 class="post-title">
-                    <a href="@($"/posts/detail/{post.UrlTitle}")">
-                        <span class="post-link">@post.Title</span>
-                    </a>
-                </h2>
-                <p>@post.PostTime.SiteFormat()</p>
-            </li>
+                    <li class="post-info">
+                        <h2 class="post-title">
+                            <a href="@($"/posts/detail/{post.UrlTitle}")">
+                                <span class="post-link">@post.Title</span>
+                            </a>
+                        </h2>
+                        <p>@post.PostTime.ToRelativeTime()</p>
+                    </li>
         }
-    </ul>
+        </ul>
 }
