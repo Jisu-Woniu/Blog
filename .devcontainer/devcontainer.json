@@ -9,15 +9,18 @@
     // "features": {},
 
     // Use 'forwardPorts' to make a list of ports inside the container available locally.
-    "forwardPorts": [5000, 5001],
-    "portsAttributes": {
-        "5001": {
-            "protocol": "https"
-        }
-    },
+    // "forwardPorts": [5000, 5001],
+    // "portsAttributes": {
+    //     "5001": {
+    //         "protocol": "https"
+    //     }
+    // },
 
     // Use 'postCreateCommand' to run commands after the container is created.
-    "postCreateCommand": "dotnet restore"
+	"postCreateCommand": "sudo dotnet workload install wasm-tools && dotnet dev-certs https && dotnet restore",
+	"features": {
+		// "devwasm.azurecr.io/dev-wasm/dev-wasm-feature/dotnet-wasi:0": {}
+	}
 
     // Configure tool-specific properties.
     // "customizations": {},
