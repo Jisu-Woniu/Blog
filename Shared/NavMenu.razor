@@ -11,11 +11,11 @@
         <FluentButton @onclick="ToggleNavMenu" id="nav-toggler">
             @if (collapseNavMenu)
             {
-                <FluentIcon Name="@(FluentIcons.Add)" Filled="false" Size="IconSize.Size20" UseAccentColor="false" />
+                <FluentIcon Name="@(FluentIcons.Add)" Filled="false" Size="IconSize.Size20" Color="Color.Neutral" />
             }
             else
             {
-                <FluentIcon Name="@(FluentIcons.Dismiss)" Filled="false" Size="IconSize.Size20" UseAccentColor="false" />
+                <FluentIcon Name="@(FluentIcons.Dismiss)" Filled="false" Size="IconSize.Size20" Color="Color.Neutral" />
             }
         </FluentButton>
     </div>
@@ -26,21 +26,21 @@
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
                 <FluentIcon Name="@(FluentIcons.Home)"
-                            Filled="false" Size="IconSize.Size20" UseAccentColor="false" />
+                            Filled="false" Size="IconSize.Size20" Color="Color.Neutral" />
                 <span class="text-margin-left">首页</span>
             </NavLink>
         </div>
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="posts">
                 <FluentIcon Name="@(FluentIcons.TextBulletListSquareEdit)"
-                            Filled="false" Size="IconSize.Size20" UseAccentColor="false" />
+                            Filled="false" Size="IconSize.Size20" Color="Color.Neutral" />
                 <span class="text-margin-left">博文</span>
             </NavLink>
         </div>
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="links">
                 <FluentIcon Name="@(FluentIcons.ContactCardLink)"
-                            Filled="false" Size="IconSize.Size20" UseAccentColor="false" />
+                            Filled="false" Size="IconSize.Size20" Color="Color.Neutral" />
                 <span class="text-margin-left">友情链接</span>
             </NavLink>
         </div>
