@@ -4,7 +4,7 @@
 
 > ℹ️ NEWS
 > 
-> 新版博客正在筹备中，将使用 [Astro](https://astro.build) 结合服务端渲染技术，访问更流畅。
+> 新版博客现已发布，使用 [Astro](https://astro.build) 进行静态渲染，访问更流畅。详情参考：[blog-astro](https://github.com/Jisu-Woniu/blog-astro)
 
 本仓库保存了博客的源码，博客网页托管在 Cloudflare Pages 上。博客中所有文章，除非另有说明，均采用知识共享署名-相同方式共享 4.0 国际（CC BY-SA 4.0）许可协议进行许可。
 
