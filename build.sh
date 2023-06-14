@@ -4,4 +4,4 @@ chmod +x dotnet-install.sh
 ./dotnet-install.sh -c 7.0 -InstallDir ./dotnet
 ./dotnet/dotnet --version
 ./dotnet/dotnet workload install wasm-tools
-./dotnet/dotnet publish -c Release
+./dotnet/dotnet publish -c Release -p:PublishDir=bin/publish
