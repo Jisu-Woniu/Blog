@@ -5,6 +5,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<NeutralLanguage>zh-CN</NeutralLanguage>
 		<!-- <InvariantGlobalization>true</InvariantGlobalization> -->
+		<WasmEnableWebcil>true</WasmEnableWebcil>
 	</PropertyGroup>
 	<ItemGroup>
 		<Content Remove="links-info-schema.json" />
